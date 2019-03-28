@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Project;
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ProjectService;
-
+@Service
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
@@ -32,13 +33,13 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Project getById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return projectRepository.getOne(id);
 	}
 
 	@Override
 	public Page<Project> getAllPageable(Pageable pageable) {
 		// TODO Auto-generated method stub
-		return null;
+		return projectRepository.findAll(pageable);
 	}
 
 	@Override
