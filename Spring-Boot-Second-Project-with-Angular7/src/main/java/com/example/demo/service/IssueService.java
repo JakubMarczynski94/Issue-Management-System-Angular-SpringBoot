@@ -3,18 +3,20 @@ package com.example.demo.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.example.demo.Dto.IssueDto;
 import com.example.demo.entity.Issue;
+import com.example.demo.util.TPage;
 
 public interface IssueService {
 
 	
-	Issue save(Issue issue);
+	IssueDto save(IssueDto issue);
 	
-	Issue getById(Long id);
+	IssueDto getById(Long id);
 
-    Page<Issue> getAllPageable(Pageable pageable);
+    TPage<IssueDto> getAllPageable(Pageable pageable);
 
-    Boolean delete(Issue issue);
+    Boolean delete(IssueDto issue);
 
-    Issue update(Long id, Issue project);
+    IssueDto update(Long id, IssueDto project);
 }
