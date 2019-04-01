@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.example.demo.Dto.ProjectDto;
 import com.example.demo.entity.Issue;
 import com.example.demo.entity.Project;
 import com.example.demo.entity.User;
@@ -12,17 +13,19 @@ import com.example.demo.entity.User;
 public interface ProjectService {
 
 	
-	Project save(Project project);
+	ProjectDto save(ProjectDto project);
 	
-	Project getById(Long id);
+	ProjectDto getById(Long id);
 
     Page<Project> getAllPageable(Pageable pageable);
     
-    List<Project> getByProjectCode(String projectCode);
+    ProjectDto getByProjectCode(String projectCode);
 
     List<Project> getByProjectCodeContains(String projectCode);
 
     Boolean delete(Project project);
 
-    Project update(Long id, Project project);
+    Boolean delete(Long id) ;
+    
+    ProjectDto update(Long id, ProjectDto project);
 }
