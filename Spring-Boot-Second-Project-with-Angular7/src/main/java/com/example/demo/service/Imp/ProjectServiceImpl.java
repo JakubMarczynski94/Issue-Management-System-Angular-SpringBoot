@@ -45,9 +45,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectDto getById(Long id) {
 
 		Project p = projectRepository.getOne(id);
-		if (p==null) {
-			throw new EntityNotFoundException("Project id does not exist");
-		}
+//		if (p==null) {
+//			throw new EntityNotFoundException("Project id does not exist");
+//		}
 		ProjectDto pDto = modelMapper.map(p, ProjectDto.class);
 		return pDto;
 	}
