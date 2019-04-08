@@ -51,24 +51,7 @@ public class Issue extends BaseEntity{
 		this.assignee = assignee;
 		this.project = project;
 	}
-
-
-
-
-	public Project getProject() {
-		return project;
-	}
-
-
-
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-
-
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -96,28 +79,27 @@ public class Issue extends BaseEntity{
 	public Date getDate() {
 		return date;
 	}
-
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
 	public IssueStatus getIssueStatus() {
 		return issueStatus;
 	}
-
 	public void setIssueStatus(IssueStatus issueStatus) {
 		this.issueStatus = issueStatus;
 	}
-
 	public User getAssignee() {
 		return assignee;
 	}
-
 	public void setAssignee(User assignee) {
 		this.assignee = assignee;
 	}
-
-
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
