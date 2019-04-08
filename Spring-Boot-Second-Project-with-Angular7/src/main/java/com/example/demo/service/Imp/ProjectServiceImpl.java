@@ -2,6 +2,8 @@ package com.example.demo.service.Imp;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +45,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectDto getById(Long id) {
 
 		Project p = projectRepository.getOne(id);
+		if (p==null) {
+			throw new EntityNotFoundException("Project id does not exist");
+		}
 		ProjectDto pDto = modelMapper.map(p, ProjectDto.class);
 		return pDto;
 	}
@@ -74,9 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Project projectDb=projectRepository.getOne(id);
 		if(projectDb==null) {
 			throw new IllegalArgumentException("Project does not exist id : "+id);
-			//return false;
 		}
-		
 		projectRepository.deleteById(id);
 		return true;
 	}

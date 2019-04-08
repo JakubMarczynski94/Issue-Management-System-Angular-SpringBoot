@@ -5,22 +5,35 @@ import java.util.Date;
 import com.example.demo.entity.IssueStatus;
 import com.example.demo.entity.Project;
 import com.example.demo.entity.User;
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 
 import lombok.Data;
 
 @Data
+@ApiModel(value="Issue Data Transfer Object")
 public class IssueDto {
 
+	@ApiModelProperty(required=true,value=" id of IssueDto ")
 	private Long id;
+	@ApiModelProperty(required=true,value=" description of IssueDto ")
 	private String description;
+	@ApiModelProperty(required=true,value=" details of IssueDto ")
 	private String details;
+	@ApiModelProperty(required=true,value=" date")
 	private Date date;
+	@ApiModelProperty(required=true,value=" issueStatus")
 	private IssueStatus issueStatus;
+	@ApiModelProperty(required=true,value=" assignee")
 	private UserDto assignee;
+	@ApiModelProperty(required=true,value=" project")
 	private ProjectDto project;
 	
 	
 	
+	public IssueDto() {
+		super();
+	}
 	public Long getId() {
 		return id;
 	}
