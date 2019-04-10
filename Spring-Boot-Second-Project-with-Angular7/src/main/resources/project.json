@@ -1,0 +1,32 @@
+[
+  {
+    "_class": "com.example.demo.entity.Project",
+    "projectCode" : "IM",
+    "projectName": "Issue Management Project"
+  },
+  {
+    "_class": "com.example.demo.entity.Project",
+    "projectCode" : "ERP-S",
+    "projectName": "ERP Project for Sales"
+  },
+  {
+    "_class": "com.example.demo.entity.Project",
+    "projectCode" : "CRM-S",
+    "projectName": "CRM Project for Sales"
+  },
+  {
+    "_class": "com.example.demo.entity.Project",
+    "projectCode" : "CRM-B",
+    "projectName": "CRM Project for Bussiness"
+  },
+  {
+    "_class": "com.example.demo.entity.Project",
+    "projectCode" : "ERP-B",
+    "projectName": "ERP Project for Bussiness"
+  },
+  {
+    "_class": "com.example.demo.entity.Project",
+    "projectCode" : "TP",
+    "projectName": "Test Project"
+  }
+]
