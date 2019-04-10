@@ -9,6 +9,7 @@ import com.example.demo.Dto.ProjectDto;
 import com.example.demo.entity.Issue;
 import com.example.demo.entity.Project;
 import com.example.demo.entity.User;
+import com.example.demo.util.TPage;
 
 public interface ProjectService {
 
@@ -17,7 +18,7 @@ public interface ProjectService {
 	
 	ProjectDto getById(Long id);
 
-    Page<Project> getAllPageable(Pageable pageable);
+    TPage<ProjectDto> getAllPageable(Pageable pageable);
     
     ProjectDto getByProjectCode(String projectCode);
 

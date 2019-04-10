@@ -1,8 +1,8 @@
 package com.example.demo.service.Imp;
 
+import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -14,6 +14,7 @@ import com.example.demo.entity.Project;
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ProjectService;
+import com.example.demo.util.TPage;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -53,11 +54,16 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Page<Project> getAllPageable(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return projectRepository.findAll(pageable);
+	public TPage<ProjectDto> getAllPageable(Pageable pageable) {
+		Page<Project> data=projectRepository.findAll(pageable);
+        TPage<ProjectDto> response = new TPage<ProjectDto>();
+		ProjectDto[] projectDtoArrays=modelMapper.map(data.getContent(), ProjectDto[].class);
+		response.setStat(data, Arrays.asList(projectDtoArrays));
+		return response;
 	}
 
+	
+	
 	@Override
 	public ProjectDto getByProjectCode(String projectCode) {
 		// TODO Auto-generated method stub
