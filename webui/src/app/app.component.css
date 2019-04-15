@@ -1,0 +1,17 @@
+#message1{
+    color: chartreuse;
+    background-color: brown;
+   
+}
+#message2{
+    color: chartreuse;
+    background-color: indigo;
+   
+}
+.message{
+    font-size: 25px;
+}
+*{
+    margin: 0;
+    padding: 0
+}
