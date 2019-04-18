@@ -13,6 +13,7 @@ import com.example.demo.util.TPage;
 
 public interface ProjectService {
 
+	List<ProjectDto> getAll();
 	
 	ProjectDto save(ProjectDto project);
 	

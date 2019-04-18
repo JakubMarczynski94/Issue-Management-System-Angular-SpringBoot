@@ -1,10 +1,14 @@
 package com.example.demo.api;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
 @Api(value = ApiPaths.ProjectCtrl.CTRL,description ="Project APIs")
 @Slf4j
+@CrossOrigin(origins="http://localhost:5422/")
+//@CrossOrigin
 public class ProjectController {
 
 	private final ProjectService projectService;
@@ -54,6 +60,14 @@ public class ProjectController {
 		ProjectDto projectDto=projectService.getById(id);
 		return ResponseEntity.ok(projectDto);
 	}
+	
+    @GetMapping("/get-all-project")
+    @ApiOperation(value = "Get All Operation", response = ProjectDto.class , responseContainer = "List")
+    public ResponseEntity<List<ProjectDto>> getAll() {
+        List<ProjectDto> data = projectService.getAll();
+        return ResponseEntity.ok(data);
+    }
+	
 
 	@PostMapping
 	@ApiOperation(value="Create operation for project",response=ProjectDto.class)
