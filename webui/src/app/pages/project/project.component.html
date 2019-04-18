@@ -6,3 +6,20 @@
   <a href="/project" >Project</a><br/>
   <a href="/issue" >Issue</a><br/>
 </div>
+<div class="content-wrapper">
+  <ngx-datatable
+  class="bootstrap"
+  [rows]="rows"
+  [columns]="cols"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="page.totalElements"
+  [offset]="page.page"
+  [limit]="page.size"
+  (page)='setPage($event)'>
+</ngx-datatable>
+
+</div>
