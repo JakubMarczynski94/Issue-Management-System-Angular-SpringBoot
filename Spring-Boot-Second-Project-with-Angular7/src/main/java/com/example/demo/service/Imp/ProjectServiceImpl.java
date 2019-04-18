@@ -1,9 +1,10 @@
 package com.example.demo.service.Imp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+import org.apache.tomcat.util.digester.ArrayStack;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return project;
 	}
 
+	public List<ProjectDto> getAll(){
+		List<Project> projectList = projectRepository.findAll();
+		ProjectDto[] projectDtoArrays=modelMapper.map(projectList, ProjectDto[].class);
+		return Arrays.asList(projectDtoArrays);
+	}
+	
 	@Override
 	public ProjectDto getById(Long id) {
 
