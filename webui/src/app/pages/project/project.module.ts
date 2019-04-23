@@ -5,6 +5,7 @@ import { ProjectRoutingModule } from './project.routing.module';
 import { ProjectService } from 'src/app/services/shared/project.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { BsModalService } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [ProjectComponent],
@@ -14,6 +15,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ProjectRoutingModule,
     SharedModule
   ],
-  providers: [ProjectService],
+  providers: [ProjectService, BsModalService],
 })
 export class ProjectModule { }
