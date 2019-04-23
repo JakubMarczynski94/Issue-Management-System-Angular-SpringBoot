@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ProjectService } from 'src/app/services/shared/project.service';
 import { Page } from 'src/app/common/Page';
 import { Project } from 'src/app/common/project.module';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-project',
@@ -11,14 +12,14 @@ import { Project } from 'src/app/common/project.module';
 export class ProjectComponent implements OnInit {
   page = new Page();
   rows = new Array<Project>();
-  cols = [
-    {prop: 'id', name: 'No'},
-    {prop: 'projectName', name: 'Project Name', sortable: false},
-    {prop: 'projectCode', name: 'Project Code', sortable: false},
-  ];
-
+  modalRef: BsModalRef;
   projectTitle: string;
-  constructor(private projectService: ProjectService) {
+  cols = [
+    { prop: 'id', name: 'No' },
+    { prop: 'projectName', name: 'Project Name', sortable: false },
+    { prop: 'projectCode', name: 'Project Code', sortable: false },
+  ];
+  constructor(private projectService: ProjectService, private modalService: BsModalService) {
     this.projectTitle = 'Project Details';
   }
 
@@ -27,6 +28,9 @@ export class ProjectComponent implements OnInit {
     this.projectTitle = 'Project Details Extra';
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
   setPage(pageInfo) {
     this.page.page = pageInfo.offset;
     this.projectService.getAllPageable(this.page).subscribe(pagedData => {
