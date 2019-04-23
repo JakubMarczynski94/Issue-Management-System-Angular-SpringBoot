@@ -20,7 +20,6 @@ export class ProjectService {
   getAllPageable( page ) : Observable<any>{
     return this.apiService.get(this.PROJECT_PATH + '/pagination', page).pipe(map(
       res =>{
-        console.log(res)
         if(res){
           return res;
         } else {
