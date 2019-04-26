@@ -25,7 +25,7 @@ export class ApiService {
   }
 
   post(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.post(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
+    return this.http.post(environment.API_BASE_PATH + path, params).pipe(catchError(this.formatError));
   }
 
   put(path: string, params: HttpParams = new HttpParams()): Observable<any> {

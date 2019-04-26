@@ -1,0 +1,16 @@
+<form (ngSubmit) = "onConfirm()" *ngIf="active">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      {{header}}
+    </h4>
+  </div>
+  <div class="modal-body">
+    <p>{{body}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" >Yes</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">No</button>
+
+  </div>
+
+</form>
