@@ -4,6 +4,7 @@ import { Page } from 'src/app/common/Page';
 import { Project } from 'src/app/common/project.module';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { ConfirmationComponent } from 'src/app/shared/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-project',
@@ -23,8 +24,8 @@ export class ProjectComponent implements OnInit {
     { prop: 'projectCode', name: 'Project Code', sortable: false },
   ];
   constructor(private projectService: ProjectService,
-              private modalService: BsModalService,
-              private formBuilder: FormBuilder) {
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder) {
     this.projectTitle = 'Project Details';
   }
 
@@ -37,22 +38,25 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  get f(){
+  get f() {
     return this.projectForm.controls;
   }
-  saveProject(){
-    if(!this.projectForm.valid){
-      return ;
+  saveProject() {
+    if (!this.projectForm.valid) {
+      return;
     }
+    // Values coming from form parameters
+    // console.log(this.projectForm.value[ 'projectCode' ]);
+    // console.log(this.projectForm.value[ 'projectName' ]);
     this.projectService.createProject(this.projectForm.value).subscribe(
-      res=>{
+      res => {
         console.log(res);
       }
     );
     this.closeAndResetModal();
     this.setPage({ offset: 0 });
   }
-  closeAndResetModal(){
+  closeAndResetModal() {
     this.projectForm.reset();
     this.modalRef.hide();
   }
@@ -69,5 +73,27 @@ export class ProjectComponent implements OnInit {
       this.page.totalElements = pagedData.totalElements;
       this.rows = pagedData.content;
     });
+  }
+
+
+  showProjectDeleteConfirmation(value): void {
+    const modal = this.modalService.show(ConfirmationComponent);
+    ( < ConfirmationComponent > modal.content ).showConfirmation(
+      'Delete Confirmation',
+      'Are you sure for delete Project'
+    );
+    ( < ConfirmationComponent > modal.content).onClose.subscribe(result => {
+        if (result === true) {
+          console.log('Yes');
+          // this.projectService.delete(value).subscribe(response => {
+          //   if (response === true) {
+          //     this.setPage({offset: 0})
+          //   }
+          // });
+        } else if (result === false) {
+          console.log('No');
+        }
+      }
+    );
   }
 }

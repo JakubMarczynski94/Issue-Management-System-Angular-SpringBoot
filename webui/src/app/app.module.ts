@@ -4,15 +4,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { FooterComponent, HeaderComponent, SidebarComponent, AppLayoutComponent } from './_layout';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import {HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ApiService } from './services/api.service';
 
 
 
-export const createTranslateLoader = (http: HttpClient) =>{
-  return new TranslateHttpLoader( http , './assets/lang/', '.json');
+export const createTranslateLoader = (http: HttpClient) => {
+  return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
 
 
