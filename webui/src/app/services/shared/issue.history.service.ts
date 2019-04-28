@@ -7,8 +7,8 @@ import { map } from 'rxjs/internal/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
-  PROJECT_PATH = '/project';
+export class IssueHistoryService {
+  ISSUE_HISTORY_PATH = '/issue/history';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ export class ProjectService {
   constructor(private apiService: ApiService, private http: HttpClient) { }
 
   getAllPageable(page): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH + '/pagination', page).pipe(map(
+    return this.apiService.get(this.ISSUE_HISTORY_PATH + '/pagination', page).pipe(map(
       res => {
         if (res) {
           return res;
@@ -29,7 +29,7 @@ export class ProjectService {
   }
 
   getAll(): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH).pipe(map(
+    return this.apiService.get(this.ISSUE_HISTORY_PATH).pipe(map(
       res => {
         if (res) {
           return res;
@@ -41,7 +41,7 @@ export class ProjectService {
   }
 
   getById(id): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH, id).pipe(map(
+    return this.apiService.get(this.ISSUE_HISTORY_PATH, id).pipe(map(
       res => {
         if (res) {
           return res;
@@ -53,8 +53,8 @@ export class ProjectService {
     ));
   }
 
-  createProject(project): Observable<any> {
-    return this.apiService.post(this.PROJECT_PATH, project).pipe(map(
+  createIssue(issue): Observable<any> {
+    return this.apiService.post(this.ISSUE_HISTORY_PATH, issue).pipe(map(
       res => {
         if (res) {
           return res;
@@ -67,7 +67,7 @@ export class ProjectService {
   }
 
   delete(id): Observable<any> {
-    return this.apiService.delete(this.PROJECT_PATH + '/' + id).pipe(map(
+    return this.apiService.delete(this.ISSUE_HISTORY_PATH + '/' + id).pipe(map(
       res => {
         if (res) {
           return res;

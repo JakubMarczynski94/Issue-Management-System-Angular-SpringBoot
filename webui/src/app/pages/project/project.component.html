@@ -20,9 +20,11 @@
   [limit]="page.size"
   (page)='setPage($event)'>
 </ngx-datatable>
+<ng-template #tplProjectDeleteCall let-row="row" let-value="value">
+  <button (click)="showProjectDeleteConfirmation(value)" ><i class="material-icons ">delete</i></button>
+</ng-template>
 
 <div>
-  <button type="button" class="btn btn-success" (click)="showProjectDeleteConfirmation()">Confirm</button>
   <button type="button" class="btn btn-primary" (click)="openModal(template)">Create Template Modal</button>
 </div>
 <ng-template #template>

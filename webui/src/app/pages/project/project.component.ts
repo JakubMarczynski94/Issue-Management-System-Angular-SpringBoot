@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ProjectService } from 'src/app/services/shared/project.service';
 import { Page } from 'src/app/common/Page';
 import { Project } from 'src/app/common/project.module';
@@ -18,18 +18,20 @@ export class ProjectComponent implements OnInit {
   projectForm: FormGroup;
   modalRef: BsModalRef;
   projectTitle: string;
-  cols = [
-    { prop: 'id', name: 'No' },
-    { prop: 'projectName', name: 'Project Name', sortable: false },
-    { prop: 'projectCode', name: 'Project Code', sortable: false },
-  ];
-  constructor(private projectService: ProjectService,
-    private modalService: BsModalService,
-    private formBuilder: FormBuilder) {
+  @ViewChild('tplProjectDeleteCall') tplProjectDeleteCall: TemplateRef<any>;
+  cols = [];
+  constructor(private projectService: ProjectService, private modalService: BsModalService, private formBuilder: FormBuilder) {
     this.projectTitle = 'Project Details';
   }
 
   ngOnInit() {
+    this.cols = [
+      { prop: 'id', name: 'No' },
+      { prop: 'projectName', name: 'Project Name', sortable: false },
+      { prop: 'projectCode', name: 'Project Code', sortable: false },
+      { prop: 'id', name: 'Action', cellTemplate: this.tplProjectDeleteCall, flexGrow: 1, sortable: false },
+    ];
+
     this.setPage({ offset: 0 });
     this.projectTitle = 'Project Details Extra';
     this.projectForm = this.formBuilder.group({
@@ -78,22 +80,22 @@ export class ProjectComponent implements OnInit {
 
   showProjectDeleteConfirmation(value): void {
     const modal = this.modalService.show(ConfirmationComponent);
-    ( < ConfirmationComponent > modal.content ).showConfirmation(
+    (<ConfirmationComponent>modal.content).showConfirmation(
       'Delete Confirmation',
       'Are you sure for delete Project'
     );
-    ( < ConfirmationComponent > modal.content).onClose.subscribe(result => {
-        if (result === true) {
-          console.log('Yes');
-          // this.projectService.delete(value).subscribe(response => {
-          //   if (response === true) {
-          //     this.setPage({offset: 0})
-          //   }
-          // });
-        } else if (result === false) {
-          console.log('No');
-        }
+    (<ConfirmationComponent>modal.content).onClose.subscribe(result => {
+      if (result === true) {
+        console.log('Yes id : ' + value);
+        this.projectService.delete(value).subscribe(response => {
+          if (response === true) {
+            this.setPage({ offset: 0 })
+          }
+        });
+      } else if (result === false) {
+        console.log('No id : ' + value);
       }
+    }
     );
   }
 }

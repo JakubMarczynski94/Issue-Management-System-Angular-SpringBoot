@@ -17,7 +17,7 @@ export class ConfirmationComponent implements OnInit {
   constructor(private bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-    this.onClose= new Subject();
+    this.onClose = new Subject();
   }
 
   showConfirmation(header: string, body: string) {
@@ -27,14 +27,12 @@ export class ConfirmationComponent implements OnInit {
 
   }
   onConfirm() {
-    console.log('Yes 1');
     this.active = false;
     this.onClose.next(true);
     this.bsModalRef.hide();
   }
 
   onCancel() {
-    console.log('No 1');
     this.active = false;
     this.onClose.next(false);
     this.bsModalRef.hide();
