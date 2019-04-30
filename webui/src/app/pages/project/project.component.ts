@@ -5,6 +5,7 @@ import { Project } from 'src/app/common/project.module';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ConfirmationComponent } from 'src/app/shared/confirmation/confirmation.component';
+import { UserService } from 'src/app/services/shared/user.service';
 
 @Component({
   selector: 'app-project',
@@ -17,11 +18,16 @@ export class ProjectComponent implements OnInit {
   rows = new Array<Project>();
   projectForm: FormGroup;
   modalRef: BsModalRef;
-  projectTitle: string;
+  projectTitle = 'Project Details';
+
   @ViewChild('tplProjectDeleteCall') tplProjectDeleteCall: TemplateRef<any>;
   cols = [];
-  constructor(private projectService: ProjectService, private modalService: BsModalService, private formBuilder: FormBuilder) {
-    this.projectTitle = 'Project Details';
+  managerOptions = [];
+
+  constructor(private projectService: ProjectService, 
+    private modalService: BsModalService, 
+    private formBuilder: FormBuilder,
+    private userService: UserService ) {
   }
 
   ngOnInit() {
@@ -37,6 +43,10 @@ export class ProjectComponent implements OnInit {
     this.projectForm = this.formBuilder.group({
       'projectCode': [null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       'projectName': [null, [Validators.required, Validators.minLength(4)]]
+    });
+    this.userService.getAll().subscribe(res => {
+      this.managerOptions = res;
+      console.log(res);
     });
   }
 
