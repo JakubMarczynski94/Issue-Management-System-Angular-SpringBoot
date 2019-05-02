@@ -2,8 +2,11 @@ package com.example.demo.api;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.IssueDto;
 import com.example.demo.Dto.ProjectDto;
 import com.example.demo.service.IssueService;
+import com.example.demo.service.Imp.IssueServiceImp;
 import com.example.demo.util.ApiPaths;
+import com.example.demo.util.TPage;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
@@ -23,16 +28,24 @@ import com.wordnik.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(ApiPaths.IssueCtrl.CTRL)
 @Api(value = ApiPaths.IssueCtrl.CTRL,description ="Issue APIs")
+@CrossOrigin
 public class IssueController {
 
-	private final IssueService issueService;
+	private final IssueServiceImp issueService;
 	
 	
-	public IssueController(IssueService issueService) {
+	public IssueController(IssueServiceImp issueService) {
 		super();
 		this.issueService = issueService;
 	}
 
+    @GetMapping("/pagination")
+    @ApiOperation(value = "Get By Pagination Operation", response = IssueDto.class)
+    public ResponseEntity<TPage<IssueDto>> getAllByPagination(Pageable pageable) {
+        TPage<IssueDto> data = issueService.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+    }
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	@ApiOperation(notes="Get By Id operation for Issue",value="Get By Id operation for Issue",response=IssueDto.class)
 	public ResponseEntity<IssueDto> getById(@PathVariable(name="id",required=true) Long id) {

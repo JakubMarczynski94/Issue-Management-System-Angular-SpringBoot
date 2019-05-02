@@ -28,7 +28,7 @@ public class SpringBootSecondProjectWithAngular7Application {
 //    @Bean
 //    public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
 //        Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-//        factory.setResources(new Resource[]{new ClassPathResource("project.json")});
+//        factory.setResources(new Resource[]{new ClassPathResource("user.json")});
 //        return factory;
 //    }
 		

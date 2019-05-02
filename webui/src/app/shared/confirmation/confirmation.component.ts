@@ -36,7 +36,6 @@ export class ConfirmationComponent implements OnInit {
     this.active = false;
     this.onClose.next(false);
     this.bsModalRef.hide();
-  
   }
 
 

@@ -1,8 +1,34 @@
-<h1>
-  issue works!
-</h1>
 <div id="nav">
-  <a href="/" >DashBoard</a><br/>
-  <a href="/project" >Project</a><br/>
-  <a href="/issue" >Issue</a><br/>
+  <h3> {{ 'Issue List' | translate }} </h3>
+  <a href="/">DashBoard</a><br />
+  <a href="/project">Project</a><br />
+  <a href="/issue">Issue</a><br />
+</div>
+<div class="content-wrapper">
+  <ngx-datatable
+  class="bootstrap"
+  [rows]="rows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="page.totalElements"
+  [offset]="page.page"
+  [limit]="page.size"
+  (page)='setPage($event)'>
+    <ngx-datatable-column prop="id" name="No" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="description" name="Description" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="details" name="Details" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="date" name="Date" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="issueStatus" name="issueStatus" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="assignee.username" name="User name" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="project.projectName" name="Project name" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="id" name="Actions " sortable="false">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <a [routerLink]="['issue-detail/',value]"><strong>Detail for {{value}}</strong></a>
+        <!-- <a href="/issue-detail/{{value}}"><strong>Detail for {{value}}</strong></a> -->
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
 </div>
