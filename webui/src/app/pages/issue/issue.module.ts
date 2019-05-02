@@ -4,11 +4,13 @@ import { IssueComponent } from './issue.component';
 import { IssueRoutingModule } from './issue.routing.module';
 import { IssueService } from 'src/app/services/shared/issue.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [IssueComponent],
   imports: [
     CommonModule,
+    NgxDatatableModule,
     IssueRoutingModule,
     SharedModule
   ],

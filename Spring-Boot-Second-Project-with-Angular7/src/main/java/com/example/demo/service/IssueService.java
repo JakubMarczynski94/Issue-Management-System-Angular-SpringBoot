@@ -9,16 +9,15 @@ import com.example.demo.util.TPage;
 
 public interface IssueService {
 
-	
-	IssueDto save(IssueDto issue);
-	
-	IssueDto getById(Long id);
+    IssueDto save(IssueDto issue);
+
+    IssueDto getById(Long id);
 
     TPage<IssueDto> getAllPageable(Pageable pageable);
 
-    Boolean delete(IssueDto issue);
+    Boolean delete(Long issue);
 
     IssueDto update(Long id, IssueDto project);
 
-	Boolean delete(Long id);
+    Boolean delete(IssueDto issue);
 }

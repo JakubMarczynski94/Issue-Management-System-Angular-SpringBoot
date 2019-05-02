@@ -28,5 +28,17 @@
     "_class": "com.example.demo.entity.Project",
     "projectCode" : "TP",
     "projectName": "Test Project"
+  },
+  {
+    "_class": "com.example.demo.entity.User",
+    "username" : "Celal",
+    "surname": "Aygar",
+    "email": "celal@gmail.com"
+  },
+  {
+    "_class": "com.example.demo.entity.User",
+    "username" : "Fatih",
+    "surname": "Terim",
+    "email": "f.terim@gmail.com"
   }
 ]

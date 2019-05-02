@@ -91,8 +91,7 @@ public class IssueServiceImp implements IssueService {
     }
     
 	@Override
-	public Boolean delete(IssueDto issue) {
-		// TODO Auto-generated method stub
+	public Boolean delete(IssueDto issue) { 
 		return null;
 	}
 

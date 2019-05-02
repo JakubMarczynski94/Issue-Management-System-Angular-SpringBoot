@@ -5,7 +5,7 @@ import {BsModalRef, ModalModule} from 'ngx-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 @NgModule({
-  declarations: [ConfirmationComponent],
+  declarations: [ConfirmationComponent ],
   imports: [
     CommonModule,
     FormsModule,
