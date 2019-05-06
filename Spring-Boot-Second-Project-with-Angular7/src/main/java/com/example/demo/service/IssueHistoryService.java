@@ -5,23 +5,22 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.example.demo.Dto.IssueHistoryDto;
 import com.example.demo.entity.Issue;
 import com.example.demo.entity.IssueHistory;
+import com.example.demo.util.TPage;
 
 public interface IssueHistoryService {
 
-	
-	IssueHistory save(IssueHistory issueHistory);
-	
-	IssueHistory getById(Long id);
+    IssueHistoryDto save(IssueHistoryDto issueHistory);
 
-    Page<IssueHistory> getAllPageable(Pageable pageable);
+    IssueHistoryDto getById(Long id);
 
-    Boolean delete(IssueHistory issueHistory);
+    List<IssueHistoryDto> getByIssueId(Long id);
 
-    IssueHistory update(Long id, IssueHistory issueHistory);
+    TPage<IssueHistoryDto> getAllPageable(Pageable pageable);
 
-    List<IssueHistory> getByIssueId(Long id);
+    Boolean delete(IssueHistoryDto issueHistory);
 
     void addHistory(Long id, Issue issue);
 }

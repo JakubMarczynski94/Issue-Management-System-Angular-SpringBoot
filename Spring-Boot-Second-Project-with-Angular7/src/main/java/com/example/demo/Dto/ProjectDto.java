@@ -12,7 +12,6 @@ import lombok.Data;
 @ApiModel(value="Project Data Transfer Object")
 public class ProjectDto {
 	
-
 	@ApiModelProperty(value=" ProjectDto ID")
 	private Long id;
 	
