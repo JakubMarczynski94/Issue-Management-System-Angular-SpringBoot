@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.Dto.IssueDetailDto;
 import com.example.demo.Dto.IssueDto;
 import com.example.demo.Dto.ProjectDto;
 import com.example.demo.service.IssueService;
@@ -53,6 +54,15 @@ public class IssueController {
 		return ResponseEntity.ok(IssueDto);
 	}
 	
+	//localhost:8182/api/issue/detail/1000
+	//http://localhost:8182/api/issue/detail/1001
+    @GetMapping("/detail/{id}")
+    @ApiOperation(value = "Get By Id Operation", response = IssueDto.class)
+    public ResponseEntity<IssueDetailDto> getByIdWithDetails(@PathVariable(value = "id", required = true) Long id) {
+        IssueDetailDto detailDto = issueService.getByIdWithDetails(id);
+        return ResponseEntity.ok(detailDto);
+    }
+    
 	@PostMapping
 	@ApiOperation(value="Create operation for Issue",response=IssueDto.class)
 	public ResponseEntity<IssueDto> createissueDto(@Valid @RequestBody IssueDto issueDto){

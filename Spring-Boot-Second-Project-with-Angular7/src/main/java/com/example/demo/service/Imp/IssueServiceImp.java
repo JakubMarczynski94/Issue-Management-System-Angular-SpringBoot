@@ -10,10 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Dto.IssueDetailDto;
 import com.example.demo.Dto.IssueDto;
+import com.example.demo.Dto.IssueHistoryDto;
 import com.example.demo.entity.Issue;
 import com.example.demo.entity.Project;
 import com.example.demo.repository.IssueRepository;
+import com.example.demo.service.IssueHistoryService;
 import com.example.demo.service.IssueService;
 import com.example.demo.util.TPage;
 @Service
@@ -21,12 +24,14 @@ public class IssueServiceImp implements IssueService {
 
 	private final IssueRepository issueRepository;
 	private final ModelMapper modelMapper;
+	private final IssueHistoryService issueHistoryService;
 	
 	
 	@Autowired
-	public IssueServiceImp (IssueRepository issueRepository,ModelMapper modelMapper){
+	public IssueServiceImp (IssueRepository issueRepository,ModelMapper modelMapper,IssueHistoryService issueHistoryService){
 		this.issueRepository=issueRepository;
 		this.modelMapper=modelMapper;
+		this.issueHistoryService=issueHistoryService;
 	}
 	
 	 
@@ -103,7 +108,13 @@ public class IssueServiceImp implements IssueService {
 		}
 		return null;
 	}
-
+    public IssueDetailDto getByIdWithDetails(Long id) {
+        Issue issue = issueRepository.getOne(id);
+        IssueDetailDto detailDto = modelMapper.map(issue, IssueDetailDto.class);
+        List<IssueHistoryDto> issueHistoryDtos = issueHistoryService.getByIssueId(issue.getId());
+        detailDto.setIssueHistories(issueHistoryDtos);
+        return detailDto;
+	}
 
 	@Override
 	public Boolean delete(Long id) {

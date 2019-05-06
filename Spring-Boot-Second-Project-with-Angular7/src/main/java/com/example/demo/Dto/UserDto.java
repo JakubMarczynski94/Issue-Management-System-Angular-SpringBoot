@@ -6,8 +6,6 @@ public class UserDto {
 	private String surname;
 	private String email;
 	
-	
-	
 	public UserDto() {
 		super();
 	}
