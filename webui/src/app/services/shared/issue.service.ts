@@ -9,14 +9,17 @@ import { map } from 'rxjs/internal/operators';
   providedIn: 'root'
 })
 export class IssueService {
+  getByIdWıthDetails(id: number) {
+    throw new Error('Method not implemented.');
+  }
   ISSUE_PATH = '/issue';
-  private ISSUE_GET_BY_ID_DETAILS = this.ISSUE_PATH + '/detail/';
+  private ISSUE_GET_BY_ID_DETAILS = this.ISSUE_PATH + '/detail/' ;
   private ISSUE_GET_STATUSES = this.ISSUE_PATH + '/statuses';
-  private httpOptions = {
-    headers: new HttpHeaders({
+  private httpOptions = { headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
+
   constructor(private apiService: ApiService, private http: HttpClient) { }
   
   getAll(page): Observable<any> {
@@ -38,7 +41,6 @@ export class IssueService {
         if (res) {
           return res;
         } else {
-          console.log(res);
           return {};
         }
       }
@@ -51,7 +53,6 @@ export class IssueService {
         if (res) {
           return res;
         } else {
-          console.log(res);
           return {};
         }
       }
@@ -64,7 +65,6 @@ export class IssueService {
         if (res) {
           return res;
         } else {
-          console.log(res);
           return {};
         }
       }

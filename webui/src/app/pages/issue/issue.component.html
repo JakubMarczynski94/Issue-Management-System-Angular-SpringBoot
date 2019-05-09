@@ -27,7 +27,6 @@
     <ngx-datatable-column prop="id" name="Actions " sortable="false">
       <ng-template let-value="value" ngx-datatable-cell-template>
         <a [routerLink]="['issue-detail/',value]"><strong>Detail for {{value}}</strong></a>
-        <!-- <a href="/issue-detail/{{value}}"><strong>Detail for {{value}}</strong></a> -->
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
