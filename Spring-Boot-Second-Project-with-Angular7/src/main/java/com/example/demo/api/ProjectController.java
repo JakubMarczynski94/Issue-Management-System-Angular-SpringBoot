@@ -55,7 +55,13 @@ public class ProjectController {
 		return ResponseEntity.ok(response);
 	}
 	
-
+	//http://localhost:8182/api/project
+    @GetMapping()
+    @ApiOperation(value = "Get All Operation", response = ProjectDto.class , responseContainer = "List")
+    public ResponseEntity<List<ProjectDto>> getAll() {
+        List<ProjectDto> data = projectService.getAll();
+        return ResponseEntity.ok(data);
+    }
 	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -66,13 +72,7 @@ public class ProjectController {
 		return ResponseEntity.ok(projectDto);
 	}
 	
-	//http://localhost:8182/api/project
-    @GetMapping()
-    @ApiOperation(value = "Get All Operation", response = ProjectDto.class , responseContainer = "List")
-    public ResponseEntity<List<ProjectDto>> getAll() {
-        List<ProjectDto> data = projectService.getAll();
-        return ResponseEntity.ok(data);
-    }
+
 	
 
 	@PostMapping

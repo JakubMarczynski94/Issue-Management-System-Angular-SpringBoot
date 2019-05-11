@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IssueService } from 'src/app/services/shared/issue.service';
 import { ProjectService } from 'src/app/services/shared/project.service';
 import { UserService } from 'src/app/services/shared/user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-issue-detail',
@@ -12,6 +13,7 @@ import { UserService } from 'src/app/services/shared/user.service';
 export class IssueDetailComponent implements OnInit {
   id: number;
   sub: any;
+  issueDetailForm: FormGroup;
 
   // Options parameters for dropdown input
   AssigneeOptions = [];
@@ -25,6 +27,7 @@ export class IssueDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private projectService: ProjectService,
+              private formBuilder: FormBuilder,
               private issueService: IssueService) {
 
   }
@@ -45,8 +48,29 @@ export class IssueDetailComponent implements OnInit {
     ];
     this.loadProject();
     this.loadAssignees();
-    // this.loadIssueStatues();
+    this.loadIssueStatues();
   }
+
+  createIssueDetailFormGroup(response) {
+    return this.formBuilder.group({
+      id: response['id'],
+      description: response['description'],
+      details: response['details'],
+      date: this.fromJsonDate(response['date']),
+      issueStatus: response['issueStatus'],
+      assignee_id: response['assignee']? response['assignee']['id'] : '',
+      project_id: response['project'] ? response['project']['id'] : '',
+      project_manager: response['project'] && response['project']['manager'] ? response['project']['manager']['username']: '',
+    });
+  }
+
+  fromJsonDate(jDate): string {
+    const bDate: Date = new Date(jDate);
+    return bDate.toISOString().substring(0, 10);
+  }
+
+
+
   loadIssueStatues() {
     this.issueService.getAllIssueStatuses().subscribe(res => {
       this.issueStatusesOptions = res;
@@ -65,6 +89,7 @@ export class IssueDetailComponent implements OnInit {
   loadIssueDetails() {
     this.issueService.getByIdWithDetails(this.id).subscribe(res => {
       this.issueDetails = res;
+      this.issueDetailForm = this.createIssueDetailFormGroup(res);
       this.datatable = res['issueHistories']
     }
     );

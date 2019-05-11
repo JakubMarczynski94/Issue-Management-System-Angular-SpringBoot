@@ -19,7 +19,7 @@
         <div class="form-group">
           <label class="badge">Issue Status</label>
           <select formControlName="issueStatus" class="form-control" >
-            <option *ngFor="let val of issueStatusOptions" [value]="val">{{val}}</option>
+            <option *ngFor="let val of issueStatusesOptions" [value]="val">{{val}}</option>
           </select>
         </div>
       </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
           <label class="badge">Assignee</label>
           <select formControlName="assignee_id" class="form-control" >
-            <option *ngFor="let val of assigneeOptions" [value]="val.id">{{val.nameSurname}}</option>
+            <option *ngFor="let val of AssigneeOptions" [value]="val.id">{{val.id}} - {{val.username}}</option>
           </select>
         </div>
       </div>

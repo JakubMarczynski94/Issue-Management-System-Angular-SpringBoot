@@ -1,5 +1,8 @@
 package com.example.demo.api;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.IssueDetailDto;
 import com.example.demo.Dto.IssueDto;
 import com.example.demo.Dto.ProjectDto;
+import com.example.demo.entity.IssueStatus;
 import com.example.demo.service.IssueService;
 import com.example.demo.service.Imp.IssueServiceImp;
 import com.example.demo.util.ApiPaths;
@@ -83,4 +87,16 @@ public class IssueController {
 		return ResponseEntity.ok(issueService.delete(id));
 	}
 	
+//    @GetMapping()
+//    @ApiOperation(value = "Get All IssueStatus Operation", response = IssueDto.class , responseContainer = "List")
+//    public ResponseEntity<List<IssueDto>> getAll() {
+//        List<IssueDto> data = issueService.getAll();
+//        return ResponseEntity.ok(data);
+//    }
+	
+    @GetMapping("/statuses")
+    @ApiOperation(value = "Get All IssueStatus Operation", response = String.class , responseContainer = "List")
+    public ResponseEntity<List<IssueStatus>> getAll() {
+        return ResponseEntity.ok(Arrays.asList(IssueStatus.values()));
+    }
 }
