@@ -90,7 +90,6 @@ export class IssueService {
         if (res) {
           return res;
         } else {
-          console.log(res);
           return {};
         }
       }
