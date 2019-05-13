@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.IssueDetailDto;
 import com.example.demo.Dto.IssueDto;
+import com.example.demo.Dto.IssueUpdateDto;
 import com.example.demo.Dto.ProjectDto;
 import com.example.demo.entity.IssueStatus;
 import com.example.demo.service.IssueService;
@@ -76,8 +77,8 @@ public class IssueController {
 	@PutMapping("/{id}")
 	@ApiOperation(value="Update for Issue",response=IssueDto.class)
 	//@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<IssueDto> updateissueDto(@PathVariable(name="id",required=true) Long id,@Valid @RequestBody IssueDto issueDto){
-		return ResponseEntity.ok(issueService.update(id, issueDto));
+	public ResponseEntity<IssueDetailDto> updateissueDto(@PathVariable(name="id",required=true) Long id,@Valid @RequestBody IssueUpdateDto issue){
+		return ResponseEntity.ok(issueService.update(id, issue));
 	}
 	
 	@DeleteMapping("/{id}")

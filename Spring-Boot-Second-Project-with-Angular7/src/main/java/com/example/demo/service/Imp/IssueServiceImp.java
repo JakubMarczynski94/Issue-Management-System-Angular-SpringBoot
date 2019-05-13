@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.Dto.IssueDetailDto;
 import com.example.demo.Dto.IssueDto;
 import com.example.demo.Dto.IssueHistoryDto;
+import com.example.demo.Dto.IssueUpdateDto;
 import com.example.demo.entity.Issue;
 import com.example.demo.entity.Project;
+import com.example.demo.entity.User;
 import com.example.demo.repository.IssueRepository;
+import com.example.demo.repository.ProjectRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.IssueHistoryService;
 import com.example.demo.service.IssueService;
 import com.example.demo.util.TPage;
@@ -25,13 +30,23 @@ public class IssueServiceImp implements IssueService {
 	private final IssueRepository issueRepository;
 	private final ModelMapper modelMapper;
 	private final IssueHistoryService issueHistoryService;
+	private final UserRepository userRepository;
+	private final ProjectRepository projectRepository;
 	
 	
 	@Autowired
-	public IssueServiceImp (IssueRepository issueRepository,ModelMapper modelMapper,IssueHistoryService issueHistoryService){
+	public IssueServiceImp (
+			IssueRepository issueRepository,
+			ModelMapper modelMapper,
+			IssueHistoryService issueHistoryService,
+			UserRepository userRepository,
+			ProjectRepository projectRepository){
+		
 		this.issueRepository=issueRepository;
 		this.modelMapper=modelMapper;
 		this.issueHistoryService=issueHistoryService;
+		this.userRepository=userRepository;
+		this.projectRepository=projectRepository;
 	}
 	
 	 
@@ -57,21 +72,21 @@ public class IssueServiceImp implements IssueService {
 		IssueDto issueDto=modelMapper.map(issue,IssueDto.class);
 		return issueDto;
 	}
-//    @Transactional
-//    public IssueDetailDto update(Long id, IssueUpdateDto issue) {
-//        Issue issueDb = issueRepository.getOne(id);
-//        User user = userRepository.getOne(issue.getAssignee_id());
-//        issueHistoryService.addHistory(id,issueDb);
-//
-//        issueDb.setAssignee(user);
-//        issueDb.setDate(issue.getDate());
-//        issueDb.setDescription(issue.getDescription());
-//        issueDb.setDetails(issue.getDetails());
-//        issueDb.setIssueStatus(issue.getIssueStatus());
-//        issueDb.setProject(projectRepository.getOne(issue.getProject_id()));
-//        issueRepository.save(issueDb);
-//        return getByIdWithDetails(id);
-//    }
+    @Transactional
+    public IssueDetailDto update(Long id, IssueUpdateDto issue) {
+        Issue issueDb = issueRepository.getOne(id);
+        User user = userRepository.getOne(issue.getAssignee_id());
+        issueHistoryService.addHistory(id,issueDb);
+
+        issueDb.setAssignee(user);
+        issueDb.setDate(issue.getDate());
+        issueDb.setDescription(issue.getDescription());
+        issueDb.setDetails(issue.getDetails());
+        issueDb.setIssueStatus(issue.getIssueStatus());
+        issueDb.setProject(projectRepository.getOne(issue.getProject_id()));
+        issueRepository.save(issueDb);
+        return getByIdWithDetails(id);
+    }
 //    public IssueDetailDto getByIdWithDetails(Long id) {
 //        Issue issue = issueRepository.getOne(id);
 //        IssueDetailDto detailDto = modelMapper.map(issue, IssueDetailDto.class);

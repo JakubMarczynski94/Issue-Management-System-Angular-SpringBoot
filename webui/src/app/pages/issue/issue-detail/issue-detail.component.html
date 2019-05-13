@@ -44,7 +44,7 @@
         <div class="form-group">
           <label class="badge">Project</label>
           <select formControlName="project_id" class="form-control" >
-            <option *ngFor="let val of projectOptions" [value]="val.id"> {{val.projectName}}</option>
+            <option *ngFor="let val of projectOptions" [value]="val.id">{{val.id}} - {{val.projectName}}</option>
           </select>
         </div>
       </div>
