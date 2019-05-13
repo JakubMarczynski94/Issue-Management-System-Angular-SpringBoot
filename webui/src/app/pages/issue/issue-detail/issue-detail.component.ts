@@ -40,6 +40,7 @@ export class IssueDetailComponent implements OnInit {
     this.columns = [
       { prop: 'id', name: 'No' },
       { prop: 'description', name: 'Description' },
+      { prop: 'date', name: 'date' },
       // { prop: 'details', name: 'Details' },
       { prop: 'issueStatus', name: 'issue Status' },
       { prop: 'assignee.username', name: 'Username' },
@@ -63,13 +64,13 @@ export class IssueDetailComponent implements OnInit {
       project_manager: response['project'] && response['project']['manager'] ? response['project']['manager']['username']: '',
     });
   }
-
-  fromJsonDate(jDate): string {
-    const bDate: Date = new Date(jDate);
-    return bDate.toISOString().substring(0, 10);
+  saveIssue(){
+    this.issueService.updateIssue(this.issueDetailForm.value).subscribe(res => {
+      this.issueDetailForm = this.createIssueDetailFormGroup(res);
+      this.datatable = res['issueHistories'];
+      //this.loadIssueDetails();
+    });
   }
-
-
 
   loadIssueStatues() {
     this.issueService.getAllIssueStatuses().subscribe(res => {
@@ -90,8 +91,12 @@ export class IssueDetailComponent implements OnInit {
     this.issueService.getByIdWithDetails(this.id).subscribe(res => {
       this.issueDetails = res;
       this.issueDetailForm = this.createIssueDetailFormGroup(res);
-      this.datatable = res['issueHistories']
+      this.datatable = res['issueHistories'];
     }
     );
+  }
+  fromJsonDate(jDate): string {
+    const bDate: Date = new Date(jDate);
+    return bDate.toISOString().substring(0, 10);
   }
 }
