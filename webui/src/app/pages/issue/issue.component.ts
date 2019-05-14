@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { IssueService } from 'src/app/services/shared/issue.service';
 import { Page } from 'src/app/common/Page';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { ProjectService } from 'src/app/services/shared/project.service';
 
 @Component({
   selector: 'app-issue',
@@ -8,14 +11,29 @@ import { Page } from 'src/app/common/Page';
   styleUrls: ['./issue.component.css']
 })
 export class IssueComponent implements OnInit {
+  // new ıssue parameters
+  IssueForm: FormGroup;
+  modalRef: BsModalRef;
+  projectOptions = [];
+
+  // issue listing parameters
   page = new Page();
   rows = [];
   projectsName = [];
-  constructor(private issueService: IssueService) { }
+  constructor(private issueService: IssueService,
+              private formBuilder: FormBuilder,
+              private projectService: ProjectService, 
+              private modalService: BsModalService) {
+
+  }
 
   ngOnInit() {
+    this.loadProject();
     this.setPage({ offset: 0 });
-
+    this.IssueForm = this.formBuilder.group({
+      'description': [null, [Validators.required]],
+      'projectId': [null, [Validators.required]]
+    });
   }
 
 
@@ -39,4 +57,28 @@ export class IssueComponent implements OnInit {
     });
   }
 
+  saveIssue(){
+    if (!this.IssueForm.valid) {
+      return;
+    }
+    this.issueService.createIssue(this.IssueForm.value).subscribe(res=>{
+      this.setPage({ offset: 0 });
+      this.IssueForm.reset();
+      this.closeAndResetModal();
+      console.log("-------------------------------2");
+    });
+  }
+  get f() { return this.IssueForm.controls; }
+  loadProject() {
+    this.projectService.getAll().subscribe(res => {
+      this.projectOptions = res;
+    });
+  }
+  closeAndResetModal() {
+    this.modalRef.hide();
+    console.log("--------------------------------1");
+  }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 }

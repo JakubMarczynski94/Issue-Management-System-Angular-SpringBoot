@@ -25,9 +25,9 @@ export class ProjectComponent implements OnInit {
   managerOptions = [];
 
   constructor(private projectService: ProjectService, 
-    private modalService: BsModalService, 
-    private formBuilder: FormBuilder,
-    private userService: UserService ) {
+              private modalService: BsModalService, 
+              private formBuilder: FormBuilder,
+              private userService: UserService ) {
   }
 
   ngOnInit() {

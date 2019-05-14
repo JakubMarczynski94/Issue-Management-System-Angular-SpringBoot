@@ -2,6 +2,8 @@ package com.example.demo.Dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.example.demo.entity.IssueStatus;
 import com.example.demo.entity.Project;
 import com.example.demo.entity.User;
@@ -28,9 +30,16 @@ public class IssueDto {
 	private UserDto assignee;
 	@ApiModelProperty(required=true,value=" project")
 	private ProjectDto project;
+	@NotNull
+	@ApiModelProperty(required=true,value=" Project Manager Id ")
+	private	Long  projectId;
 	
-	
-	
+	public Long getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
 	public IssueDto() {
 		super();
 	}
