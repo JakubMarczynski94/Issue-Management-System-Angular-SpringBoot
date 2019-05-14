@@ -16,6 +16,7 @@ import com.example.demo.Dto.IssueDto;
 import com.example.demo.Dto.IssueHistoryDto;
 import com.example.demo.Dto.IssueUpdateDto;
 import com.example.demo.entity.Issue;
+import com.example.demo.entity.IssueStatus;
 import com.example.demo.entity.Project;
 import com.example.demo.entity.User;
 import com.example.demo.repository.IssueRepository;
@@ -53,11 +54,15 @@ public class IssueServiceImp implements IssueService {
 	@Override
 	public IssueDto save(IssueDto issue) {
 //		Date date = new Date();
-//		issue.setDate(date);
-		if(issue.getDate()==null) {
-			throw new IllegalArgumentException("Issue Date cannot be null");
-		}
+		issue.setDate(new Date());
+//		if(issue.getDate()==null) {
+//			throw new IllegalArgumentException("Issue Date cannot be null");
+//		}
+		issue.setIssueStatus(IssueStatus.OPEN);
+		
+		
 		Issue issueDb=modelMapper.map(issue, Issue.class);
+		issueDb.setProject(projectRepository.getOne(issue.getProjectId()));
 		issueDb = issueRepository.save(issueDb);
 		issue.setId(issueDb.getId());
 		return issue;
