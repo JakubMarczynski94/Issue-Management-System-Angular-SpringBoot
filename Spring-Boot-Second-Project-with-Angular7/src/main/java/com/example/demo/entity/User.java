@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 
 @Entity
-//@Table(name="users" , indexes = {@Index(name = "idx_username", columnList = "uname")})
-@Table(name="users")
+@Table(name="users" , indexes = {@Index(name = "idx_username", columnList = "uname")})
+//@Table(name="users")
 public class User extends BaseEntity{
 
 
