@@ -6,9 +6,11 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.Dto.RegistrationRequest;
 import com.example.demo.Dto.UserDto;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
@@ -23,12 +25,12 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	public UserServiceImp(UserRepository userRepository, ModelMapper modelMapper /*,BCryptPasswordEncoder bCryptPasswordEncoder*/) {
+	public UserServiceImp(UserRepository userRepository, ModelMapper modelMapper ,BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -65,20 +67,20 @@ public class UserServiceImp implements UserService {
         return modelMapper.map(u, UserDto.class);
     }
 
-//    @Transactional
-//    public Boolean register(RegistrationRequest registrationRequest) {
-//        try {
-//            User user = new User();
-//            user.setEmail(registrationRequest.getEmail());
-//            user.setNameSurname(registrationRequest.getNameSurname());
-//            user.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
-//            user.setUsername(registrationRequest.getUsername());
-//            userRepository.save(user);
-//            return Boolean.TRUE;
-//        } catch (Exception e) {
+    @Transactional
+    public Boolean register(RegistrationRequest registrationRequest) {
+        try {
+            User user = new User();
+            user.setEmail(registrationRequest.getEmail());
+            user.setSurname(registrationRequest.getSurname());
+            user.setPassword(bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
+            user.setUsername(registrationRequest.getUsername());
+            userRepository.save(user);
+            return Boolean.TRUE;
+        } catch (Exception e) {
 //            log.error("REGISTRATION=>", e);
-//            return Boolean.FALSE;
-//        }
-//    }
+            return Boolean.FALSE;
+        }
+    }
 
 }
