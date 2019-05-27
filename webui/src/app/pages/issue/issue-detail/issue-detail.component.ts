@@ -30,9 +30,7 @@ export class IssueDetailComponent implements OnInit {
               private projectService: ProjectService,
               private formBuilder: FormBuilder,
               private issueService: IssueService) {
-
-  }
-
+  } 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -48,11 +46,8 @@ export class IssueDetailComponent implements OnInit {
       { prop: 'issue.project.projectName', name: 'Project Name' },
       // { prop: 'issue.project.projectCode', name: 'Project Code' },
     ];
-    this.loadProject();
-    this.loadAssignees();
-    this.loadIssueStatues();
-  }
-
+    this.loadProject(); this.loadAssignees(); this.loadIssueStatues();
+  } 
   createIssueDetailFormGroup(response) {
     return this.formBuilder.group({
       id: response['id'],
