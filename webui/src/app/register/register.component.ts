@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthenticationService } from '../security/authentication.service';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -6,10 +10,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
-  constructor() { }
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
+  error = '';
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.registerForm =  this.formBuilder.group({
+      username: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+  get f() {
+    return this.registerForm.controls;
   }
 
+  register() {
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authenticationService.register(this.registerForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
+  }
 }
