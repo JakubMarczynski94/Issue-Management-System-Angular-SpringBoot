@@ -1,4 +1,4 @@
-# Spring-Boot-Second-Project
+# Issue-Management-Project-with-Angular7-Spring-Boot
 This project is about Issue management
 #### Using Tools & Technologies
 ``` 
